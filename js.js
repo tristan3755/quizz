@@ -12,7 +12,11 @@ rep:["Louis le gros","Le roi soleil","Saint-Louis"]
 question:"Php est un langage back-end ou front-End ? ",
 rep:["Back-end","Front-end","Les deux"]
 
-}    
+},
+{   
+question:"Comment déclare t-on une variable en javascript? ",
+rep:["Let","Var","Les deux"]
+},
 ]
 
 let compteurQuestion=1
@@ -23,6 +27,7 @@ let point=0
 let question1=document.querySelector('.question1')
 let question2=document.querySelector('.question2')
 let question3=document.querySelector('.question3')
+let question4=document.querySelector('.question4')
 let resultat=document.querySelector('.resultat')
 /*question1*/
 
@@ -103,10 +108,12 @@ for(let i in quizz[2].rep){
     console.log(e.target.innerHTML)
     arrayReponses.push(e.target.innerHTML)
     question3.style.display="none"
+    question4.style.display='flex'
     if(e.target.innerHTML=='Back-end'){
         point ++
     }
-    result()
+    compteurQuestion ++
+    incrementQuestion()
     console.log(arrayReponses)
     console.log(point)
     })
@@ -115,6 +122,35 @@ for(let i in quizz[2].rep){
 }
 /*question3*/
 
+/*question4*/
+
+let questionVar=document.createElement("p")
+questionVar.classList="questions"
+questionVar.innerHTML=quizz[3].question
+question4.appendChild(questionVar)
+
+
+for(let i in quizz[3].rep){
+    console.log(quizz[3].rep[i])
+    let questionVar=document.createElement('p')
+    questionVar.innerHTML=quizz[3].rep[i]
+    question4.appendChild(questionVar)
+    questionVar.addEventListener('click',(e)=>{
+    console.log(e.target.innerHTML)
+    arrayReponses.push(e.target.innerHTML)
+    question4.style.display="none"
+    if(e.target.innerHTML=='Les deux'){
+        point ++
+    }
+    result()
+    console.log(arrayReponses)
+    console.log(point)
+    })
+    
+    questionVar.classList='reponseCapitale'
+}
+/*question4*/
+
 function result(){
     let paragraphResultat=document.createElement('p')
     let repCandidats=document.createElement('p')
@@ -122,8 +158,8 @@ function result(){
     paragraphResultat.classList="repStyle"
     repCandidats.classList="repStyle"
     repAttendues.classList="repStyle"
-    repCandidats.innerHTML='Vos réponses : ' + arrayReponses[0] + ' , ' + arrayReponses[1] + ' , ' + arrayReponses[2]
-    repAttendues.innerHTML='Bonnes réponses: Paris ,Saint-Louis ,Back-End'
+    repCandidats.innerHTML='Vos réponses : ' + arrayReponses[0] + ' , ' + arrayReponses[1] + ' , ' + arrayReponses[2] + ' , ' + arrayReponses[3]
+    repAttendues.innerHTML='Bonnes réponses: Paris ,Saint-Louis ,Back-End ,Les deux'
     paragraphResultat.innerHTML='Votre score est de '+ point + ' bonnes réponses'
     resultat.appendChild(paragraphResultat)
     resultat.appendChild(repAttendues)
@@ -157,3 +193,5 @@ let restart=document.querySelector('.restart')
 restart.addEventListener('click',()=>{
     location.reload()
 })
+////////////////////////////////////optimisé////////////////////////////////////////////////////////////
+
